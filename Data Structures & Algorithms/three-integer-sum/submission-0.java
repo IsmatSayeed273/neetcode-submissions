@@ -1,0 +1,48 @@
+class Solution {
+    public List<List<Integer>> threeSum(int[] nums) {
+        List<List<Integer>> result = new ArrayList<>();
+        int n = nums.length;
+        
+        Arrays.sort(nums);
+
+        // Fix first element
+        for (int i = 0; i < n - 2; i++) {
+            if (i >0 && nums[i] == nums[i-1]){
+                continue;
+            }
+
+            int l = i + 1;
+            int r = n - 1;
+
+            int requiredSum = -1 * nums[i];
+
+            while (l < r) {
+
+                int sum = nums[l] + nums[r];
+
+                if (sum == requiredSum) {
+                    
+                    // Add triplet
+                    result.add(Arrays.asList(nums[i], nums[l], nums[r]));
+
+                    l++;
+                    r--;
+
+                    // Optional: skip duplicates
+                    while (l < r && nums[l] == nums[l - 1]) l++;
+                    while (l < r && nums[r] == nums[r + 1]) r--;
+                }
+
+                else if (sum < requiredSum) {
+                    l++;
+                }
+
+                else {
+                    r--;
+                }
+            }
+        }
+
+        return result;
+    }
+}
